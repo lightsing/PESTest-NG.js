@@ -23,7 +23,7 @@ class PESTAgent {
   // Send a SOAP request
   async doFetch(xmlRequest) {
     this.options.body = xmlRequest;
-    var resp = await this.fetch(this.url, options);
+    var resp = await this.fetch(this.url, this.options);
     return resp;
   }
 }

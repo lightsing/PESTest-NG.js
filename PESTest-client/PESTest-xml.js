@@ -16,14 +16,7 @@ class PESTxml {
                 { EnableCache: 'false' },
                 { MethodName: 'methodName'},
                 { Parameters: [
-                  { _attr: { 'xmlns:a': 'http://schemas.microsoft.com/2003/10/Serialization/Arrays' } },
-                  { 'a:KeyValueOfstringanyType':[
-                    { 'a:Key': 'keyName' },
-                    { 'a:Value': [
-                      { _attr: { 'xmlns:b': 'http://www.w3.org/2001/XMLSchema', 'i:type':'b:string'} },
-                      'string'
-                    ] }
-                  ] }
+                  { _attr: { 'xmlns:a': 'http://schemas.microsoft.com/2003/10/Serialization/Arrays' } }
                 ] }
               ] }
             ]
@@ -53,6 +46,17 @@ class PESTxml {
   setMethodName(MethodName) {
     this.MethodName = MethodName;
   }
+
+  pushParameter(keyName, value) {
+    var parameter = { 'a:KeyValueOfstringanyType':[
+      { 'a:Key': keyName },
+      { 'a:Value': [
+        { _attr: { 'xmlns:b': 'http://www.w3.org/2001/XMLSchema', 'i:type':'b:string'} },
+        value
+      ] } ] };
+    this.Parameters.push(parameter);
+  }
+
   //get request content string
   toString() {
     return xml(this.content);

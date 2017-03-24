@@ -39,4 +39,56 @@ class PESTClient {
     var res = await this.agent.doFetch(req.toString());
     return res;
   }
+
+  async findPaperContentByPaperID(paperID) {
+    var req = new PESTxml("USTCORi.ExamSystem.BLL.BLLExamArrage", "FindPaperContentByPaperID");
+    req.pushParameter("paperID", paperID);
+    var res = await this.agent.doFetch(req.toString());
+    return res;
+  }
+
+  async findUndoExamByStudentID(studentID) {
+    var req = new PESTxml("USTCORi.ExamSystem.BLL.BLLExamArrage", "FindUndoExamByStudentID");
+    req.pushParameter("studentID", studentID);
+    var res = await this.agent.doFetch(req.toString());
+    return res;
+  }
+
+  async updateStudentPaperContent(update) {
+    var req = new PESTxml("USTCORi.ExamSystem.BLL.BLLExamArrage", "UpdateStudentPaperContent");
+    req.pushParameter("studentInfo", update);
+    var res = await this.agent.doFetch(req.toString());
+    return res;
+  }
+
+  async findStudentInfoByExamIDAndStudentID(examID, user) {
+    var req = new PESTxml("USTCORi.ExamSystem.BLL.BLLExamArrage", "FindStudentInfoByExamIDAndStudentID");
+    req.pushParameter("examID", examID);
+    req.pushParameter("studentID", user);
+    var res = await this.agent.doFetch(req.toString());
+    return res;
+  }
+
+  async findExamScoreByStudentID(studentID) {
+    var req = new PESTxml("USTCORi.ExamSystem.BLL.BLLExamCritique", "FindExamScoreByStudentIDNew");
+    req.pushParameter("studentID", studentID);
+    var res = await this.agent.doFetch(req.toString());
+    return res;
+  }
+
+  async findPaperContent(examID, studentID) {
+    var req = new PESTxml("USTCORi.ExamSystem.BLL.BLLExamCritique", "FindPaperContent");
+    req.pushParameter("studentID", studentID);
+    req.pushParameter("examID", examID);
+    var res = await this.agent.doFetch(req.toString());
+    return res;
+  }
+
+  async findSubmitStudentByExamID(examID) {
+    var req = new PESTxml("USTCORi.ExamSystem.BLL.BLLExamCritique", "FindSubmitStudentByExamID");
+    req.pushParameter("examID", examID);
+    var res = await this.agent.doFetch(req.toString());
+    return res;
+  }
+  
 }

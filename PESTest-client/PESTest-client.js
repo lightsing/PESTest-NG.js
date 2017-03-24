@@ -96,3 +96,5 @@ class PESTClient {
   }
 
 }
+
+exports.PESTClient = PESTClient

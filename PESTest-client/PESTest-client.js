@@ -8,7 +8,7 @@ class PESTClient {
     this.agent = new PESTAgent();
   }
 
-  async interfaceLogin(user, password) {
+  async login(user, password) {
     var req = new PESTxml("USTCORi.ExamSystem.BLL.BLLSystemUser", "InterfaceLogin");
     req.pushParameter('userID', user);
     req.pushParameter('password', password);
@@ -16,7 +16,7 @@ class PESTClient {
     return res;
   }
 
-  async logoutUser(user) {
+  async logout(user) {
     var req = new PESTxml("USTCORi.ExamSystem.BLL.BLLSystemUser", "LoginOut");
     req.pushParameter("keyString", user);
     var res = await this.agent.doFetch(req.toString());

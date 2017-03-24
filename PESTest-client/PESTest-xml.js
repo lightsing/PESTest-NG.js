@@ -3,7 +3,7 @@
 const xml = require("xml");
 
 class PESTxml {
-  constructor() {
+  constructor(bizCode, methodName) {
     this.content =
     { 's:Envelope':[
         { _attr: { 'xmlns:s': 'http://schemas.xmlsoap.org/soap/envelope/' } },
@@ -12,9 +12,9 @@ class PESTxml {
               { _attr: { 'xmlns': 'http://www.ustcori.com/2009/10' } },
               { 'request':[
                 { _attr: { 'xmlns:i': 'http://www.w3.org/2001/XMLSchema-instance' } },
-                { BizCode: 'USTCORi.ExamSystem.BLL.BLLSystemUser' },
+                { BizCode: bizCode },
                 { EnableCache: 'false' },
-                { MethodName: 'methodName'},
+                { MethodName: methodName},
                 { Parameters: [
                   { _attr: { 'xmlns:a': 'http://schemas.microsoft.com/2003/10/Serialization/Arrays' } }
                 ] }

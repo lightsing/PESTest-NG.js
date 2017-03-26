@@ -3,19 +3,6 @@
 const convert = require("xml-js");
 const PESTApi = require('./PESTest-api').PESTApi;
 
-class Status {
-  constructor(err=true, res) {
-    this.err = err;
-    this.res = res;
-  }
-
-  success() { this.err = false; }
-
-  fail() { this.err = true; }
-
-  update(res) { this.res = res; }
-}
-
 class Response {
   constructor(text, options={parse2JSON:true}) {
     try{
@@ -54,22 +41,20 @@ class PESTClient {
     this.user = new User(info);
   }
 
-  async login(){
+  async login() {
     var res = await this.client.login(this.user.userID, this.user.password);
     const text = await res.text();
     res = new Response(text);
-    var status = new Status();
     if (!res.err) {
       if (res.IsSeccess == '0'){
         status.success();
         this.user.apply(res.content);
       }else{
-        status.update('Invaild username or password.');
+        throw 'Invaild username or password.';
       }
     }else{
-      status.update('Error occured in communication.');
+      throw 'Error occured in communication.';
     }
-    return status;
   }
 
   async logout() {

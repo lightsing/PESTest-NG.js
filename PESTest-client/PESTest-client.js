@@ -71,6 +71,15 @@ class PESTClient {
     }
     return status;
   }
+
+  async logout() {
+    var res = await this.client.logout(this.user.userID);
+    const text = await res.text();
+    res = new Response(text);
+    if (res.err) {
+      throw 'Error occured in communication.';
+    }
+  }
 }
 
 exports.PESTClient = PESTClient

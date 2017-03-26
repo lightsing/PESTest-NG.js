@@ -47,7 +47,6 @@ class PESTClient {
     res = new Response(text);
     if (!res.err) {
       if (res.IsSeccess == '0'){
-        status.success();
         this.user.apply(res.content);
       }else{
         throw 'Invaild username or password.';

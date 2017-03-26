@@ -14,7 +14,7 @@ class Response {
         this.content = this.response.DataString._text;
       }
     }catch(e){
-      this.err = e;
+      throw 'Error occured when processing the response.';
     }
   }
 }
@@ -45,14 +45,10 @@ class PESTClient {
     var res = await this.client.login(this.user.userID, this.user.password);
     const text = await res.text();
     res = new Response(text);
-    if (!res.err) {
-      if (res.IsSeccess == '0'){
-        this.user.apply(res.content);
-      }else{
-        throw 'Invaild username or password.';
-      }
+    if (res.IsSeccess == '0'){
+      this.user.apply(res.content);
     }else{
-      throw 'Error occured in communication.';
+      throw 'Invaild username or password.';
     }
   }
 
@@ -60,9 +56,6 @@ class PESTClient {
     var res = await this.client.logout(this.user.userID);
     const text = await res.text();
     res = new Response(text);
-    if (res.err) {
-      throw 'Error occured in communication.';
-    }
   }
 }
 

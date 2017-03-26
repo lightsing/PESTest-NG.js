@@ -23,10 +23,10 @@ var agent = new PESTAgent();
 })();
 ```
 
-### Use Client Lib
+### Use API Lib
 
 ```JavaScript
-const PESTClient = require('./PESTest-client').PESTClient;
+const PESTClient = require('./PESTest-client').PESTApi;
 
 var client = new PESTClient();
 

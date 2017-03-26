@@ -7,7 +7,7 @@ const USER_BIZCODE = "USTCORi.ExamSystem.BLL.BLLSystemUser";
 const ARRAGE_BIZCODE = "USTCORi.ExamSystem.BLL.BLLExamArrage";
 const CRITIQUE_BIZCODE = "USTCORi.ExamSystem.BLL.BLLExamCritique";
 
-class PESTClient {
+class PESTApi {
   constructor() {
     this.agent = new PESTAgent();
   }
@@ -97,4 +97,4 @@ class PESTClient {
 
 }
 
-exports.PESTClient = PESTClient
+exports.PESTApi = PESTApi

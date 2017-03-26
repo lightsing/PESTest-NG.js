@@ -1,65 +1,117 @@
 "use strict";
 
-const xml = require("xml");
+const convert = require("xml-js");
 
 class PESTxml {
   constructor(bizCode, methodName) {
     this.content =
-    { 's:Envelope':[
-        { _attr: { 'xmlns:s': 'http://schemas.xmlsoap.org/soap/envelope/' } },
-        { 's:Body':[
-          { 'DoService':[
-              { _attr: { 'xmlns': 'http://www.ustcori.com/2009/10' } },
-              { 'request':[
-                { _attr: { 'xmlns:i': 'http://www.w3.org/2001/XMLSchema-instance' } },
-                { BizCode: bizCode },
-                { EnableCache: 'false' },
-                { MethodName: methodName},
-                { Parameters: [
-                  { _attr: { 'xmlns:a': 'http://schemas.microsoft.com/2003/10/Serialization/Arrays' } }
-                ] }
-              ] }
-            ]
-          }
-      ] }
-    ]}
-    this.request = this.content['s:Envelope'][1]['s:Body'][0]['DoService'][1]['request'];
+    { "elements":[
+        { "type":"element",
+          "name":"s:Envelope",
+          "attributes":{ "xmlns:s":"http://schemas.xmlsoap.org/soap/envelope/" },
+          "elements":[
+            { "type":"element",
+              "name":"s:Body",
+              "elements":[
+                { "type":"element",
+                  "name":"DoService",
+                  "attributes":{ "xmlns":"http://www.ustcori.com/2009/10" },
+                  "elements":[
+                    { "type":"element",
+                      "name":"request",
+                      "attributes":{ "xmlns:i":"http://www.w3.org/2001/XMLSchema-instance" },
+                      "elements":[
+                        { "type":"element",
+                          "name":"BizCode",
+                          "elements":[ { "type":"text",
+                              "text":bizCode
+                            } ]
+                        },
+                        { "type":"element",
+                          "name":"EnableCache",
+                          "elements":[ { "type":"text",
+                              "text":"false"
+                            } ]
+                        },
+                        { "type":"element",
+                          "name":"MethodName",
+                          "elements":[ { "type":"text",
+                              "text":methodName
+                            } ]
+                        },
+                        { "type":"element",
+                          "name":"Parameters",
+                          "attributes":{
+                            "xmlns:a":"http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+                          },
+                          "elements":[]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+    this.request = this.content.elements[0].elements[0].elements[0].elements[0].elements;
 
-    this.BizCode = this.request[1].BizCode;
-    this.EnableCache = this.request[2].EnableCache;
-    this.MethodName = this.request[3].MethodName;
-    this.Parameters = this.request[4].Parameters;
+    this.BizCode = this.request[0].elements[0].text;
+    this.EnableCache = this.request[1].elements[0].text;
+    this.MethodName = this.request[2].elements[0].text;
+    this.Parameters = this.request[3].elements;
   }
 
   getContent(){
     return this.content;
   }
 
-  setBizCode(BizCode) {
-    this.BizCode = BizCode;
+  setBizCode(bizCode) {
+    this.BizCode = bizCode;
   }
 
-  setEnableCache(EnableCache) {
-    this.EnableCache = EnableCache;
+  setEnableCache(enableCache) {
+    this.EnableCache = enableCache;
   }
 
-  setMethodName(MethodName) {
-    this.MethodName = MethodName;
+  setMethodName(methodName) {
+    this.MethodName = methodName;
   }
 
   pushParameter(keyName, value) {
-    var parameter = { 'a:KeyValueOfstringanyType':[
-      { 'a:Key': keyName },
-      { 'a:Value': [
-        { _attr: { 'xmlns:b': 'http://www.w3.org/2001/XMLSchema', 'i:type':'b:string'} },
-        value
-      ] } ] };
+    var parameter =
+    { "type":"element",
+      "name":"a:KeyValueOfstringanyType",
+      "elements":[ { "type":"element",
+          "name":"a:Key",
+          "elements":[
+            { "type":"text",
+              "text":keyName.toString()
+            }
+          ]
+        },
+        { "type":"element",
+          "name":"a:Value",
+          "attributes":{
+            "xmlns:b":"http://www.w3.org/2001/XMLSchema",
+            "i:type":"b:string"
+          },
+          "elements":[
+            { "type":"text",
+              "text":value.toString()
+            }
+          ]
+        }
+      ]
+    };
     this.Parameters.push(parameter);
   }
 
   //get request content string
   toString() {
-    return xml(this.content);
+    return convert.js2xml(this.content);
   }
 }
 

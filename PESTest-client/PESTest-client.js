@@ -57,6 +57,13 @@ class PESTClient {
     const text = await res.text();
     res = new Response(text);
   }
+
+  async getUnfinishedExamInfo() {
+    var res = await this.client.findUndoExamByStudentID(this.user.userID);
+    const text = await res.text();
+    res = new Response(text);
+    return res.content;
+  }
 }
 
 exports.PESTClient = PESTClient

@@ -31,7 +31,7 @@ class User {
 
   apply(info) {
     this.authority = info.Authority;
-    this.online = (res.IsSeccess === '0');
+    this.online = (info.IsSeccess === '0');
     this.schoolName = info.SchoolName;
   }
 }
@@ -46,7 +46,7 @@ class PESTClient {
     var res = await this.client.login(this.user.userID, this.user.password);
     const text = await res.text();
     res = new Response(text);
-    if (res.IsSeccess == '0'){
+    if (res.content.IsSeccess == '0'){
       this.user.apply(res.content);
     }else{
       throw 'Invaild username or password.';

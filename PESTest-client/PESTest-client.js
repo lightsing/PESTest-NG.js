@@ -78,7 +78,7 @@ class PESTClient {
     return unfinishedArray;
   }
 
-  async getPaperXML(paperID) {
+  async getPaper(paperID) {
     var res = await this.client.findPaperContentByPaperID(paperID);
     const text = await res.text();
     res = new Response(text, { parse2JSON: false });

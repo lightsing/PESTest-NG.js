@@ -62,7 +62,7 @@ class PESTPaper {
   }
 
   update() {
-    this.xml = convert.js2xml(this.xml);
+    this.xml = convert.js2xml(this.json);
   }
 
   escape() {

@@ -32,6 +32,10 @@ class PESTPaper {
     return ans;
   }
 
+  update() {
+    this.xml = convert.js2xml(this.xml);
+  }
+
   escape() {
     //TODO: Check
     this.xml = '"' + this.xml.replace(/\n/g, '\\r\\n')

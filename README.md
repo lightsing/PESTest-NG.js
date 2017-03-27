@@ -36,3 +36,17 @@ var client = new PESTClient();
    console.log(text);
 })();
 ```
+
+### Use Client wrap
+
+```JavaScript
+const PESTClient = require('./PESTest-client').PESTClient;
+
+var client = new PESTClient({ userID: '12345678' });
+
+(async function () {
+   await client.login();
+   const res = await client.getUnfinishedExamInfo();
+   console.log(JSON.stringify(res));
+})();
+```

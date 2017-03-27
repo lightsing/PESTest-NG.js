@@ -114,17 +114,6 @@ class PESTxml {
     return convert.js2xml(this.content);
   }
 
-  static escape(xmlString) {
-    //TODO: Check
-    return '"' + xmlString.replace(/\n/g, '\\r\\n')
-                          .replace(/"/g, '\\"') + '"';
-  }
-
-  static unescape(xmlString) {
-    return xmlString.replace(/\\r\\n/g, '\n')
-                    .replace(/\\"/g, '"')
-                    .replace(/^\"+|\"+$/g, '');
-  }
 }
 
 exports.PESTxml = PESTxml

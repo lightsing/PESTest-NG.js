@@ -2,7 +2,7 @@
 
 const convert = require("xml-js");
 const PESTApi = require('./PESTest-api').PESTApi;
-const PESTxml = require('./PESTest-xml').PESTxml;
+const PESTPaper = require('./PESTest-paper').PESTPaper;
 
 class Response {
   constructor(text, options={parse2JSON:true}) {
@@ -70,8 +70,8 @@ class PESTClient {
     var res = await this.client.findPaperContentByPaperID(paperID);
     const text = await res.text();
     res = new Response(text, { parse2JSON: false });
-    var xmlString = PESTxml.unescape(res.content);
-    return convert.xml2js(xmlString);
+    var paper = new PESTPaper(res.content);
+    return paper;
   }
 }
 

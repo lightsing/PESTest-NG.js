@@ -4,6 +4,8 @@ const convert = require("xml-js");
 const PESTApi = require('./PESTest-api').PESTApi;
 const PESTPaper = require('./PESTest-paper').PESTPaper;
 
+const dateConv = new Set(['StartTime', 'EndTime', 'PublishTime']);
+
 class Response {
   constructor(text, options={parse2JSON:true}) {
     try{
@@ -63,7 +65,17 @@ class PESTClient {
     var res = await this.client.findUndoExamByStudentID(this.user.userID);
     const text = await res.text();
     res = new Response(text);
-    return res.content;
+    var unfinishedArray = res.content;
+    unfinishedArray.forEach(function(info) {
+      Object.keys(info).forEach(function(key) {
+        if (dateConv.has(key)) {
+          info[key].replace(/[\d+]+/, function(time) {
+            info[key] = new Date(parseInt(time)+800);
+          });
+        }
+      });
+    });
+    return unfinishedArray;
   }
 
   async getPaperXML(paperID) {

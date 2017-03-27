@@ -5,6 +5,8 @@ const convert = require("xml-js");
 class PESTPaper {
   constructor(xml) {
     this.xml = xml;
+    this.unescape();
+    this.json = convert.xml2js(this.xml);
   }
 
   escape() {

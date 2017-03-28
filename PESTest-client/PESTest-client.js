@@ -85,6 +85,30 @@ class PESTClient {
     var paper = new PESTPaper(res.content);
     return paper;
   }
+
+  async getExamInfo(examID, userID) {
+    var res = await this.client.findStudentInfoByExamIDAndStudentID(examID, userID);
+    const text = await res.text();
+    res = new Response(text);
+    return res.content;
+  }
+
+  async finishExam(info) {
+    var paper = await this.getPaper(info.UsePapers);
+    paper.complete();
+    paper.addHeader(info);
+    paper.addFinishTime();
+    var examInfo = await this.getExamInfo(info.ExamID, this.user.userID);
+    examInfo.PaperContentXml = paper.xml;
+    examInfo.GainPoint = paper.fullScore;
+    examInfo.GainShowPoint = paper.fullScore;
+    examInfo.IsSubmit = 'true';
+
+    var update = JSON.stringify(examInfo);
+    var res = await this.client.updateStudentPaperContent(update);
+    const text = await res.text();
+    return text;
+  }
 }
 
 exports.PESTClient = PESTClient

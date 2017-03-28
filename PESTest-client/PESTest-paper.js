@@ -61,6 +61,35 @@ class PESTPaper {
     this.update();
   }
 
+  addHeader(info) {
+    var header = {"type":"element", "name":"Student",
+                  "elements":[{ "type":"element", "name":"StudentID",
+                                "elements":[{ "type":"text", "text":info.StudentID }]
+                            },{ "type":"element", "name":"StudentName",
+                                "elements":[{ "type":"text", "text":info.StudentName }]
+                            },{ "type":"element", "name":"ClassID",
+                                "elements":[{ "type":"text", "text":info.ClassID }]
+                            },{ "type":"element", "name":"ClassName",
+                                "elements":[{ "type":"text", "text":info.ClassName }]
+                            },{ "type":"element", "name":"Time",
+                                "elements":[{ "type":"element", "name":"MaxTime"},
+                                            { "type":"element", "name":"RealTime"}]
+                            },{ "type":"element", "name":"GainScore",
+                                "elements":[{ "type":"text", "text":this.fullScore }]
+                            }]
+                };
+    this.info.push(header);
+  }
+
+  addFinishTime() {
+    var submitTime = 'Submit at' +
+                     (new Date()).toISOString()
+                                 .replace('T',' ')
+                                 .replace(/\..*/g,'');
+    var comment = { type: 'comment', comment: submitTime };
+    this.json.elements.unshift(comment);
+  }
+
   update() {
     this.xml = convert.js2xml(this.json);
   }

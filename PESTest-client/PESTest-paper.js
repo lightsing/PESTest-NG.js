@@ -1,6 +1,7 @@
 "use strict";
 
 const convert = require("xml-js");
+const patch = require('./PESTest-patch').PESTPatch;
 
 class PESTPaper {
   constructor(xml) {
@@ -34,29 +35,7 @@ class PESTPaper {
 
   complete() {
     this.questions.forEach( function(question) {
-      var stdAnswer = [];
-      var totalScore = [];
-      if (question.attributes.Type !== 'OP') {
-        question.elements.forEach( function(child) {
-          switch (child.name) {
-            case 'StdAnswer':
-              stdAnswer = child.elements;
-              break;
-            case 'TotalScore':
-              totalScore = child.elements;
-              break;
-            case 'StudentAnswer':
-              child.elements = stdAnswer;
-              break;
-            case 'StudentScore':
-              child.elements = totalScore;
-              break;
-
-          }
-        });
-      }else{
-        // TODO: OP Questions
-      }
+      question = (new patch(question)).question;
     });
     this.update();
   }

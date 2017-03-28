@@ -4,7 +4,7 @@ class PESTPatch {
 
   constructor(question) {
     this.question = question;
-    if (question.attributes.Type == 'OP') {
+    if (question.attributes.Type !== 'OP') {
       this.nonOP();
     }else{
       this.isOP();
@@ -34,6 +34,7 @@ class PESTPatch {
   }
 
   isOP() {
+    var rejection = this;
     this.question.elements.forEach( function(child) {
       switch (child.name) {
         case 'Score':
@@ -42,16 +43,16 @@ class PESTPatch {
         case 'CheckPoint': // Go to patch each TestTarget
           child.elements.forEach( function(targets) { if (targets.name == 'TestTarget') {
             var realScore = 0;
-            targets.elements.forEach( function(target) {
+            if(!targets.elements){ targets.elements.forEach( function(target) {
               switch (target.name) {
                 case 'Group':
-                  realScore += patchGroup(target.elements);
+                  realScore += rejection.patchGroup(target.elements);
                   break;
                 case 'RealScore':
                   target.elements = [{ "type":"text", "text": realScore.toString()}];
                   break;
               }
-            });
+            });}
           }});
           break;
       }

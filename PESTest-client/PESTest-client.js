@@ -50,6 +50,7 @@ class PESTClient {
     res = new Response(text);
     if (res.content.IsSeccess == '0'){
       this.user.apply(res.content);
+      return true;
     }else{
       throw 'Invaild username or password.';
     }
@@ -59,6 +60,7 @@ class PESTClient {
     var res = await this.client.logout(this.user.userID);
     const text = await res.text();
     res = new Response(text);
+    return res;
   }
 
   async getUnfinishedExamInfo() {

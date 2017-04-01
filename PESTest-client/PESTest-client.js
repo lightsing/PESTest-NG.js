@@ -80,6 +80,14 @@ class PESTClient {
     return unfinishedArray;
   }
 
+  async getGrades() {
+    var res = await this.client.findExamScoreByStudentID(this.user.userID);
+    const text = await res.text();
+    res = new Response(text);
+    var gradesArray = res.content;
+    return gradesArray;
+  }
+
   async getPaper(paperID) {
     var res = await this.client.findPaperContentByPaperID(paperID);
     const text = await res.text();

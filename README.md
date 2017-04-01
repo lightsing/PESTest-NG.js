@@ -52,3 +52,6 @@ var client = new PESTClient({ userID: '12345678' });
    console.log(JSON.stringify(res));
 })();
 ```
+
+[npm-url]: https://npmjs.org/package/pest-client
+[npm-image]: http://img.shields.io/npm/v/pest-client.svg

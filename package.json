@@ -1,5 +1,5 @@
 {
-  "name": "PESTclient",
+  "name": "pest-client",
   "version": "0.0.4",
   "description": "USTCORi Physics Experiment Simulation System client",
   "main": "index.js",

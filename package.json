@@ -1,6 +1,6 @@
 {
   "name": "PEST-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "USTCORi Physics Experiment Simulation System client",
   "main": "index.js",
   "author": "lightsing",

@@ -1,5 +1,7 @@
 # PhysicsExprSimulationTest-NGLib
 
+[![NPM version][npm-image]][npm-url]
+
 USTCORi Physics Experiment Simulation System Node.js Lib
 
 
@@ -8,7 +10,7 @@ USTCORi Physics Experiment Simulation System Node.js Lib
 ### Raw Call
 
 ```JavaScript
-const PESTlib = require('./PESTest-client');
+const PESTlib = require('pest-client');
 const PESTAgent = PESTlib.PESTAgent;
 const xml = PESTlib.PESTxml;
 
@@ -26,7 +28,7 @@ var agent = new PESTAgent();
 ### Use API Lib
 
 ```JavaScript
-const PESTClient = require('./PESTest-client').PESTApi;
+const PESTClient = require('pest-client').PESTApi;
 
 var client = new PESTClient();
 
@@ -40,7 +42,7 @@ var client = new PESTClient();
 ### Use Client wrap
 
 ```JavaScript
-const PESTClient = require('./PESTest-client').PESTClient;
+const PESTClient = require('pest-client').PESTClient;
 
 var client = new PESTClient({ userID: '12345678' });
 
